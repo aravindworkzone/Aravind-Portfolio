@@ -1,0 +1,64 @@
+import { useState } from "react";
+
+const groups = [
+  {
+    label: "Frontend",
+    items: [{ icon: "⚛️", name: "React" }, { icon: "🎨", name: "Tailwind CSS" }, { icon: "🔄", name: "Redux + RTK Query" }, { icon: "🚀", name: "Vite" }],
+  },
+  {
+    label: "Backend",
+    items: [{ icon: "🟢", name: "Node.js" }, { icon: "🚂", name: "Express" }, { icon: "🍃", name: "MongoDB" }, { icon: "🗄️", name: "Mongoose" }],
+  },
+  {
+    label: "Auth & Tools",
+    items: [{ icon: "🔐", name: "JWT Auth" }, { icon: "🔌", name: "REST API" }, { icon: "📦", name: "Git" }],
+  },
+];
+
+function Pill({ icon, name }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      className="flex items-center gap-2.5 px-4 py-2.5 rounded-full cursor-default"
+      style={{
+        background: hovered ? "#eef2fd" : "white",
+        border: `1.5px solid ${hovered ? "#1a56e8" : "#e4e2dd"}`,
+        boxShadow: hovered ? "0 4px 12px rgba(26,86,232,0.1)" : "0 1px 3px rgba(0,0,0,0.04)",
+        transform: hovered ? "translateY(-2px)" : "translateY(0)",
+        transition: "all 0.2s ease",
+      }}
+      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+    >
+      <span className="text-[15px]">{icon}</span>
+      <span className="text-[13px] font-medium" style={{ color: hovered ? "#1a56e8" : "#111110" }}>{name}</span>
+    </div>
+  );
+}
+
+export default function Stack() {
+  return (
+    <section id="skills" className="py-20 md:py-28" style={{ background: "#fafaf8", fontFamily: "'DM Sans', sans-serif" }}>
+      <div className="max-w-[1000px] mx-auto px-6 md:px-16">
+
+        <div className="flex items-baseline justify-between mb-10 md:mb-12">
+          <h2 style={{ fontFamily: "'Lora', Georgia, serif", fontSize: "clamp(22px, 2.8vw, 30px)", fontWeight: 700, color: "#111110", letterSpacing: "-0.02em" }}>
+            Stack
+          </h2>
+          <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: "#b8b5ae", letterSpacing: "0.08em" }}>03 / tools I use</span>
+        </div>
+
+        {groups.map((g) => (
+          <div key={g.label} className="mb-8 md:mb-10">
+            <span className="block mb-3.5"
+              style={{ fontFamily: "'DM Mono',monospace", fontSize: 10, color: "#b8b5ae", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+              {g.label}
+            </span>
+            <div className="flex flex-wrap gap-2.5">
+              {g.items.map((item) => <Pill key={item.name} {...item} />)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
